@@ -53,7 +53,7 @@
                 container.appendChild(createButton('РПБ 35', TECH_COMPLAINT_LINK, '#0000CD'));
 
                 // ТР 35 — Технический раздел
-                container.appendChild(createButton('ТР 35', TECH_LINK, '#8B008B'));
+                container.appendChild(createButton('РПС 35', TECH_LINK, '#8B008B'));
 
                 // ЖБИ 35 — Жалобы на игроков
                 container.appendChild(createButton('ЖБИ 35', PLAYER_COMPLAINT_LINK, '#DC143C'));
