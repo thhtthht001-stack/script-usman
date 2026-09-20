@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      4.0
 // @description  Панель кнопок для сервера GROZNY (35)
-// @author       Black Russia & kumiho
+// @author       Black Russia & usman
 // @match        https://forum.blackrussia.online/*
 // @grant        none
 // ==/UserScript==
