@@ -50,13 +50,13 @@
                 };
                 
                 // РПБ 35 — Жалобы на тех. специалистов
-                container.appendChild(createButton('РПБ 35', TECH_COMPLAINT_LINK, '#0000CD'));
+                container.appendChild(createButton('РПБ', TECH_COMPLAINT_LINK, '#0000CD'));
 
                 // РПС 35 — Технический раздел
-                container.appendChild(createButton('РПС 35', TECH_LINK, '#8B008B'));
+                container.appendChild(createButton('РПС', TECH_LINK, '#8B008B'));
 
                 // ЖБИ 35 — Жалобы на игроков
-                container.appendChild(createButton('ЖБИ 35', PLAYER_COMPLAINT_LINK, '#DC143C'));
+                container.appendChild(createButton('ЖБИ', PLAYER_COMPLAINT_LINK, '#DC143C'));
 
                 // ОПС — Общие правила серверов
                 container.appendChild(createButton('ОПС', OPS_LINK, '#f59e0b', true));
