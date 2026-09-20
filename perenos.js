@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         BR Panel (Thread Mover) — GROZNY (35)
+// @name         BR Panel (Thread Mover) — GROZNY
 // @namespace    http://tampermonkey.net/
-// @version      4.0
-// @description  Floating menu with thread mover for GROZNY (35) + Final response button
+// @version      4.1
+// @description  Floating menu with thread mover for GROZNY
 // @author       Black Russia
 // @match        https://forum.blackrussia.online/*
 // @grant        none
@@ -69,19 +69,14 @@
                 return match ? match[1] : null;
             }
 
-            // === ДАННЫЕ GROZNY (35) ===
-            const GROZNY =;
-            const GROZNY_TECH_NODE_ID = 1619;            // ТР 35
-            const GROZNY_TECH_COMPLAINT_NODE_ID = 1620;  // ЖБТ 35
-            const GROZNY_PLAYER_COMPLAINT_NODE_ID = 1621; // ЖБИ 35
+            // === ID РАЗДЕЛОВ GROZNY ===
+            const GROZNY_TECH_NODE_ID = 1619;            // ТР
+            const GROZNY_TECH_COMPLAINT_NODE_ID = 1620;  // ЖБТ
+            const GROZNY_PLAYER_COMPLAINT_NODE_ID = 1621; // ЖБИ
 
             const techColor = '#8B008B';
             const techComplaintColor = '#0000CD';
             const playerComplaintColor = '#DC143C';
-
-            // ID раздела "Заявки с окончательным ответом"
-            const FINAL_RESPONSE_NODE_ID = 230;
-            const FINAL_RESPONSE_COLOR = '#40E0D0';
 
             function renderMenu() {
                 const menu = document.querySelector('.fnm-mover-menu');
@@ -94,11 +89,11 @@
                 header.style.cssText = 'text-align:center; color:#fff; font-weight:bold; font-size:12px; padding:5px 0; margin-bottom:5px; background: rgba(255,255,255,0.1); border-radius:6px;';
                 menu.appendChild(header);
 
-                const createMoveButton = (nodeId, serverId, label, color) => {
+                const createMoveButton = (nodeId, label, color) => {
                     const a = document.createElement('a');
                     a.className = 'fnm-mover-link';
                     a.href = '#';
-                    a.textContent = `${label} ${serverId}`;
+                    a.textContent = label;
                     a.style.borderBottom = `2px solid ${color}`;
 
                     a.addEventListener('click', (e) => {
@@ -110,64 +105,33 @@
                     return a;
                 };
 
-                // ЖБТ 35
+                // БНД — Биографии на доработке
                 const techComplaintGroup = document.createElement('div');
                 techComplaintGroup.className = 'fnm-mover-grid';
                 techComplaintGroup.appendChild(
-                    createMoveButton(GROZNY_TECH_COMPLAINT_NODE_ID, GROZNY, 'БНД (Биографии на дороботке)', techComplaintColor)
+                    createMoveButton(GROZNY_TECH_COMPLAINT_NODE_ID, 'БНД (Биографии на доработке)', techComplaintColor)
                 );
                 menu.appendChild(techComplaintGroup);
 
                 menu.appendChild(Object.assign(document.createElement('div'), { className: 'fnm-mover-divider' }));
 
-                // ТР 35
+                // ОБ — Одобренные биографии
                 const techGroup = document.createElement('div');
                 techGroup.className = 'fnm-mover-grid';
                 techGroup.appendChild(
-                    createMoveButton(GROZNY_TECH_NODE_ID, GROZNY, 'ОБ (Одобренные биографии)', techColor)
+                    createMoveButton(GROZNY_TECH_NODE_ID, 'ОБ (Одобренные биографии)', techColor)
                 );
                 menu.appendChild(techGroup);
 
                 menu.appendChild(Object.assign(document.createElement('div'), { className: 'fnm-mover-divider' }));
 
-                // ЖБИ 35
+                // НБ — Неодобренные биографии
                 const playerComplaintGroup = document.createElement('div');
                 playerComplaintGroup.className = 'fnm-mover-grid';
                 playerComplaintGroup.appendChild(
-                    createMoveButton(GROZNY_PLAYER_COMPLAINT_NODE_ID, GROZNY, 'НБ (Неодобренные биографии)', playerComplaintColor)
+                    createMoveButton(GROZNY_PLAYER_COMPLAINT_NODE_ID, 'НБ (Неодобренные биографии)', playerComplaintColor)
                 );
                 menu.appendChild(playerComplaintGroup);
-
-                // === КНОПКА: ЗАЯВКИ С ОКОНЧ. ОТВЕТОМ ===
-                const finalResponseBtn = document.createElement('div');
-                finalResponseBtn.className = 'fnm-mover-final-btn';
-                finalResponseBtn.innerHTML = 'ЗАЯВКИ С ОКОНЧАТЕЛЬНЫМ ОТВЕТОМ';
-                finalResponseBtn.style.cssText = `
-                    margin: 5px 0;
-                    padding: 8px;
-                    background: rgba(16, 185, 129, 0.15);
-                    border: 1px solid ${FINAL_RESPONSE_COLOR};
-                    border-radius: 8px;
-                    color: ${FINAL_RESPONSE_COLOR};
-                    font-size: 11px;
-                    font-weight: bold;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                `;
-                finalResponseBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    moveThreadOnly(FINAL_RESPONSE_NODE_ID);
-                });
-                finalResponseBtn.addEventListener('mouseenter', () => {
-                    finalResponseBtn.style.background = `rgba(16, 185, 129, 0.3)`;
-                    finalResponseBtn.style.color = '#fff';
-                });
-                finalResponseBtn.addEventListener('mouseleave', () => {
-                    finalResponseBtn.style.background = `rgba(16, 185, 129, 0.15)`;
-                    finalResponseBtn.style.color = FINAL_RESPONSE_COLOR;
-                });
-                menu.appendChild(finalResponseBtn);
             }
 
             // === СТИЛИ ===
@@ -219,14 +183,14 @@
                 .fnm-mover-menu.show { opacity: 1; visibility: visible; transform: scale(1); pointer-events: auto; }
                 .fnm-mover-menu::-webkit-scrollbar { width: 4px; }
                 .fnm-mover-menu::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
-                .fnm-mover-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+                .fnm-mover-grid { display: grid; grid-template-columns: 1fr; gap: 5px; }
                 .fnm-mover-link {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    padding: 6px 2px;
+                    padding: 8px 6px;
                     font-family: system-ui, -apple-system, sans-serif;
-                    font-size: 10px;
+                    font-size: 11px;
                     font-weight: 700;
                     color: #e5e5e5;
                     text-decoration: none;
@@ -234,7 +198,8 @@
                     border-radius: 6px;
                     border: 1px solid transparent;
                     transition: background 0.1s;
-                    white-space: nowrap;
+                    white-space: normal;
+                    text-align: center;
                     cursor: pointer;
                 }
                 .fnm-mover-link:active { background: rgba(255,255,255,0.2); transform: translateY(1px); }
