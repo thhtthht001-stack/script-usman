@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         BR Panel (Thread Mover) — GROZNY
 // @namespace    http://tampermonkey.net/
-// @version      8.0
-// @description  Thread mover GROZNY — large toggle + right-side menu
+// @version      8.1
+// @description  Thread mover GROZNY — compact mobile
 // @author       Black Russia
 // @match        https://forum.blackrussia.online/*
 // @grant        none
@@ -10,8 +10,8 @@
 
 (function () {
     'use strict';
-    if (document.body.getAttribute('data-br-mover-v8')) return;
-    document.body.setAttribute('data-br-mover-v8', 'true');
+    if (document.body.getAttribute('data-br-mover-v81')) return;
+    document.body.setAttribute('data-br-mover-v81', 'true');
 
     const STORAGE_PREFIX = 'br_mover_';
 
@@ -101,7 +101,7 @@
 
     const style = document.createElement('style');
     style.textContent = `
-        :root { --fnm-size: 56px; }
+        :root { --fnm-size: 48px; }
 
         .fnm-mover-wrapper {
             position: fixed;
@@ -118,7 +118,7 @@
             background: #151515;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.65);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -134,8 +134,8 @@
         .fnm-mover-toggle:active { transform: scale(0.93); cursor: grabbing; }
         .fnm-mover-toggle.active { background: #dc2626; border-color: #ef4444; }
         .fnm-mover-toggle svg {
-            width: 26px;
-            height: 26px;
+            width: 22px;
+            height: 22px;
             pointer-events: none;
             transition: transform 0.2s ease;
         }
@@ -148,20 +148,20 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 14px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            width: 320px;
-            max-height: 75vh;
+            gap: 4px;
+            width: 240px;
+            max-height: 70vh;
             overflow-y: auto;
             opacity: 0;
             visibility: hidden;
             transform: scale(0.92);
             transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
             pointer-events: none;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.7);
             box-sizing: border-box;
         }
         .fnm-mover-menu.show {
@@ -170,7 +170,7 @@
             transform: scale(1);
             pointer-events: auto;
         }
-        .fnm-mover-menu::-webkit-scrollbar { width: 4px; }
+        .fnm-mover-menu::-webkit-scrollbar { width: 3px; }
         .fnm-mover-menu::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 2px;
@@ -180,42 +180,42 @@
             text-align: center;
             color: #fff;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 10px;
             letter-spacing: 0.6px;
-            padding: 8px 0;
+            padding: 5px 0;
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .fnm-mover-link {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 4px;
-            padding: 12px 14px;
+            gap: 2px;
+            padding: 7px 10px;
             font-family: system-ui, -apple-system, sans-serif;
-            font-size: 13px;
+            font-size: 11px;
             color: #d0d0d0;
             text-decoration: none;
             background: rgba(255, 255, 255, 0.04);
-            border-radius: 8px;
-            transition: background 0.15s ease, transform 0.1s ease;
+            border-radius: 6px;
+            transition: background 0.15s ease;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
-            line-height: 1.3;
+            line-height: 1.25;
         }
         .fnm-mover-link b {
             color: #fff;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 12px;
             letter-spacing: 0.3px;
         }
         .fnm-mover-link .fnm-short {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.45);
         }
         .fnm-mover-link:hover { background: rgba(255, 255, 255, 0.1); }
         .fnm-mover-link:active {
@@ -226,27 +226,35 @@
         .fnm-mover-divider {
             height: 1px;
             background: rgba(255, 255, 255, 0.1);
-            margin: 2px 0;
+            margin: 1px 0;
             width: 100%;
         }
 
         /* ═══ МОБИЛКА ═══ */
         @media (max-width: 900px) {
-            :root { --fnm-size: 60px; }
+            :root { --fnm-size: 44px; }
 
-            .fnm-mover-toggle svg { width: 28px; height: 28px; }
+            .fnm-mover-toggle svg { width: 20px; height: 20px; }
 
             .fnm-mover-menu {
-                width: min(340px, calc(100vw - 20px));
-                padding: 12px;
+                width: 220px;
+                padding: 7px;
+                gap: 3px;
+                border-radius: 10px;
             }
+
+            .fnm-mover-header {
+                font-size: 10px;
+                padding: 4px 0;
+            }
+
             .fnm-mover-link {
-                padding: 14px 14px;
-                min-height: 52px;
-                justify-content: center;
+                padding: 6px 9px;
+                font-size: 10px;
+                gap: 1px;
             }
-            .fnm-mover-link b { font-size: 15px; }
-            .fnm-mover-link .fnm-short { font-size: 12px; }
+            .fnm-mover-link b { font-size: 12px; }
+            .fnm-mover-link .fnm-short { font-size: 9px; }
         }
     `;
     document.head.appendChild(style);
@@ -266,13 +274,12 @@
     document.body.appendChild(wrapper);
 
     let savedPos = localStorage.getItem(STORAGE_PREFIX + 'pos');
-    // Стартовая позиция: чуть левее правого края — чтобы меню справа точно влезло
-    let pos = savedPos ? JSON.parse(savedPos) : { x: window.innerWidth - 480, y: window.innerHeight - 160 };
+    let pos = savedPos ? JSON.parse(savedPos) : { x: window.innerWidth - 60, y: window.innerHeight - 160 };
     let isDragging = false, dragStartTime = 0, dragStartX = 0, dragStartY = 0, hasMoved = false;
-    let currentSize = 56;
+    let currentSize = 48;
 
     function updatePos(x, y) {
-        currentSize = isMobile() ? 60 : 56;
+        currentSize = isMobile() ? 44 : 48;
         pos.x = Math.min(Math.max(0, x), window.innerWidth - currentSize);
         pos.y = Math.min(Math.max(0, y), window.innerHeight - currentSize);
         toggleBtn.style.left = pos.x + 'px';
@@ -283,9 +290,9 @@
     // ═══ ПРИОРИТЕТ: СПРАВА ═══
     function positionMenu() {
         const rect = toggleBtn.getBoundingClientRect();
-        const mw = menu.offsetWidth || 320;
-        const mh = menu.offsetHeight || 260;
-        const gap = 10, margin = 10;
+        const mw = menu.offsetWidth || 240;
+        const mh = menu.offsetHeight || 200;
+        const gap = 8, margin = 8;
 
         let left;
         // Сначала справа
