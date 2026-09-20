@@ -70,7 +70,7 @@
             }
 
             // === ДАННЫЕ GROZNY (35) ===
-            const GROZNY = 35;
+            const GROZNY =;
             const GROZNY_TECH_NODE_ID = 1619;            // ТР 35
             const GROZNY_TECH_COMPLAINT_NODE_ID = 1620;  // ЖБТ 35
             const GROZNY_PLAYER_COMPLAINT_NODE_ID = 1621; // ЖБИ 35
