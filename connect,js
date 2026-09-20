@@ -4,35 +4,35 @@
       "id": "button",
       "name": "Кнопки переходники",
       "matches": ["https://forum.blackrussia.online/*"],
-      "url": "https://github.com/thhtthht001-stack/script-usman/blob/main/button.js",
+      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/button.js",
       "enabledDefault": true
     },
     {
       "id": "perenos",
       "name": "Переносчик тем",
       "matches": ["https://forum.blackrussia.online/*"],
-      "url": "https://github.com/thhtthht001-stack/script-usman/blob/main/perenos.js",
+      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/perenos.js",
       "enabledDefault": true
     },
     {
       "id": "timers",
       "name": "Таймеры",
       "matches": ["https://forum.blackrussia.online/*"],
-      "url": "https://github.com/thhtthht001-stack/script-usman/blob/main/timers.js",
+      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/timers.js",
       "enabledDefault": true
     },
     {
       "id": "custom-forum",
       "name": "Кастомизация",
       "matches": ["https://forum.blackrussia.online/*"],
-      "url": "https://github.com/thhtthht001-stack/script-usman/blob/main/custom.js",
+      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/custom.js",
       "enabledDefault": true
     },
     {
       "id": "forum-kf",
       "name": "Ответы Кураторов форума",
       "matches": ["https://forum.blackrussia.online/*"],
-      "url": "https://github.com/thhtthht001-stack/script-usman/blob/main/forum-kf.js",
+      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/forum-kf.js",
       "enabledDefault": true
     }
   ]
