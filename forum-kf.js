@@ -5,7 +5,7 @@
 // @description  Предложения по улучшению скрипта писать сюда ---> https://vk.com/salafi_nn
 // @description:ru Предложения по улучшению скрипта писать сюда ---> https://vk.com/salafi_nn
 // @description:uk Приятного использования ---> https://vk.com/salafi_nn
-// @version 2.7
+// @version 2.8
 // @namespace https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
@@ -1403,9 +1403,10 @@
   function pasteContent(id, data = {}, send = false) {
     if (!buttons[id]) return;
     const template = Handlebars.compile(buttons[id].content || '');
-    if ($(`.fr-element.fr-view p`).text() === ``) $(`.fr-element.fr-view p`).empty();
+    // Полная очистка поля ввода перед вставкой нового ответа
+    $(`div.fr-element.fr-view`).empty();
     $(`span.fr-placeholder`).empty();
-    $(`div.fr-element.fr-view p`).append(template(data));
+    $(`div.fr-element.fr-view`).append(`<p>${template(data)}</p>`);
     $(`a.overlay-titleCloser`).trigger(`click`);
 
     if (send === true) {
@@ -1417,9 +1418,10 @@
   function pasteContent2(id, data = {}, send = false) {
     if (!buttons2[id]) return;
     const template = Handlebars.compile(buttons2[id].content || '');
-    if ($(`.fr-element.fr-view p`).text() === ``) $(`.fr-element.fr-view p`).empty();
+    // Полная очистка поля ввода перед вставкой нового ответа
+    $(`div.fr-element.fr-view`).empty();
     $(`span.fr-placeholder`).empty();
-    $(`div.fr-element.fr-view p`).append(template(data));
+    $(`div.fr-element.fr-view`).append(`<p>${template(data)}</p>`);
     $(`a.overlay-titleCloser`).trigger(`click`);
 
     if (send === true) {
