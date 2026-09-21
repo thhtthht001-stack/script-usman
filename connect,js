@@ -5,14 +5,16 @@
       "name": "Кнопки переходники (КФ)",
       "matches": ["https://forum.blackrussia.online/*"],
       "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/buttonn.js",
-      "enabledDefault": true
+      "enabledDefault": true,
+      "group": "buttons"
     },
     {
-      "id": "button",
+      "id": "button-ko-zko",
       "name": "Кнопки переходники (КО/ЗКО)",
       "matches": ["https://forum.blackrussia.online/*"],
-      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/buttonn.js",
-      "enabledDefault": true
+      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/button-ko-zko.js",
+      "enabledDefault": true,
+      "group": "buttons"
     },
     {
       "id": "perenos",
