@@ -2,7 +2,7 @@
 // @name         Ответы КО-ЗКО
 // @name:ru      Ответы КО-ЗКО
 // @description  Специально для BlackRussia
-// @version      4.1
+// @version      4.2
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
@@ -42,6 +42,24 @@
         -webkit-font-smoothing:antialiased!important;
       }
 
+      /* ── Контейнер тулбара (как в КФ) ── */
+      .grozny-answer-toolbar{
+        display:flex!important;
+        flex-wrap:wrap!important;
+        align-items:stretch!important;
+        gap:8px!important;
+        margin:7px 0 10px!important;
+        padding:5px!important;
+        background:#24282d!important;
+        border:1px solid #383e46!important;
+        border-radius:8px!important;
+        box-shadow:0 3px 12px rgba(0,0,0,.18)!important;
+        animation:gzToolbarIn .28s ease-out both!important;
+        column-gap:4px!important;
+        row-gap:4px!important;
+      }
+
+      /* ── Кнопка тулбара ── */
       .grozny-answer-btn{
         display:inline-flex!important;
         align-items:center!important;
@@ -60,6 +78,7 @@
         font:700 13px/1 Arial,sans-serif!important;
         letter-spacing:.1px!important;
         text-transform:uppercase!important;
+        text-align:center!important;
         cursor:pointer!important;
         box-shadow:0 1px 2px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.035)!important;
         transition:all .18s ease!important;
@@ -97,6 +116,7 @@
       }
       #groznyCustomPrefixBtn.grozny-answer-btn{ border-color:var(--gz-yellow)!important; }
 
+      /* ── Оверлей модалки ── */
       #groznyAnswerOverlay,#prefixModalOverlay{
         position:fixed!important;
         inset:0!important;
@@ -166,12 +186,15 @@
         scrollbar-color:#626a74 #202328!important;
       }
 
+      /* ── Сетка кнопок в модалке ── */
       .grozny-answer-grid{
         display:flex!important;
         flex-wrap:wrap!important;
         gap:9px!important;
         align-items:center!important;
       }
+
+      /* ── Кнопка-ответ в модалке — текст по центру ── */
       .grozny-choice{
         position:relative!important;
         overflow:hidden!important;
@@ -183,9 +206,18 @@
         background:linear-gradient(180deg,#30353b,#292e33)!important;
         color:#e3e6e9!important;
         font:600 12px/1 Arial,sans-serif!important;
+        text-align:center!important;
+        justify-content:center!important;
+        align-items:center!important;
         cursor:pointer!important;
         box-shadow:0 1px 3px rgba(0,0,0,.22)!important;
         transition:transform .16s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease!important;
+      }
+      .grozny-choice .button-text{
+        display:inline-flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        text-align:center!important;
       }
       .grozny-choice:hover{
         background:linear-gradient(180deg,#3a4047,#30353b)!important;
@@ -200,6 +232,7 @@
       .grozny-choice[data-kind="orange"]{border-color:#b67b48!important}
       .grozny-choice[data-kind="yellow"]{border-color:#aaa052!important}
 
+      /* ── Заголовок секции в модалке ── */
       .grozny-section{
         position:relative!important;
         flex:0 0 100%!important;
@@ -217,6 +250,7 @@
         animation:gzSectionIn .25s ease-out both!important;
       }
 
+      /* ── Префиксы ── */
       #prefixModalOverlay .grozny-modal{ width:min(620px,94vw)!important; }
       .grozny-prefix-grid{
         display:grid!important;
@@ -231,6 +265,7 @@
         background:linear-gradient(180deg,#30353b,#292e33)!important;
         color:#e3e6e9!important;
         font:600 12px/1 Arial,sans-serif!important;
+        text-align:center!important;
         cursor:pointer!important;
         transition:transform .16s ease,background .16s ease,border-color .16s ease!important;
       }
@@ -242,6 +277,7 @@
       }
       .grozny-prefix-btn[data-pin="true"]{ border-color:#b67b48!important; }
 
+      @keyframes gzToolbarIn{ from{opacity:0;transform:translateY(7px)} to{opacity:1;transform:translateY(0)} }
       @keyframes gzOverlayIn{ from{opacity:0} to{opacity:1} }
       @keyframes gzModalIn{ from{opacity:0;transform:translateY(12px) scale(.985)} to{opacity:1;transform:translateY(0) scale(1)} }
       @keyframes gzSectionIn{ from{opacity:0;transform:translateX(-5px)} to{opacity:1;transform:translateX(0)} }
@@ -894,18 +930,42 @@
       return;
     }
 
-    // Быстрые кнопки (сначала, чтобы шли левее)
-    QUICK_BUTTONS.forEach(q => addButton(q.title, q.id, q.kind));
-
-    // Служебные кнопки справа
-    if (!document.getElementById('groznyCustomPrefixBtn')) {
+    // Если ещё нет контейнера — создаём
+    if (!$('.grozny-answer-toolbar').length) {
       $('.button--icon--reply').before(
-        `<button type="button" class="button ripple grozny-answer-btn" id="groznyCustomPrefixBtn" data-kind="yellow">ПРЕФИКСЫ</button>`
+        `<div class="grozny-answer-toolbar" id="groznyAnswerToolbar"></div>`
       );
     }
-    if (!document.getElementById('selectAnswer')) {
-      $('.button--icon--reply').before(
-        `<button type="button" class="button ripple grozny-answer-btn" id="selectAnswer" data-kind="orange">ОТВЕТЫ</button>`
+
+    const $toolbar = $('#groznyAnswerToolbar');
+
+    // Хелпер — вставка кнопки в тулбар (если её ещё нет)
+    const addBtn = (id, html) => {
+      if (document.getElementById(id)) return;
+      $toolbar.append(html);
+    };
+
+    addBtn(`pin`,      `<button type="button" class="button ripple grozny-answer-btn" data-kind="orange" id="pin">На рассмотрении</button>`);
+    addBtn(`gkf`,      `<button type="button" class="button ripple grozny-answer-btn" data-kind="orange" id="gkf">ГКФу</button>`);
+    addBtn(`texy`,     `<button type="button" class="button ripple grozny-answer-btn" data-kind="orange" id="texy">Теху</button>`);
+    addBtn(`obman`,    `<button type="button" class="button ripple grozny-answer-btn" data-kind="blue"   id="obman">NonRP Обман</button>`);
+    addBtn(`rodn`,     `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="rodn">Оск/Упом родни</button>`);
+    addBtn(`slivskl`,  `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="slivskl">Слив склада</button>`);
+    addBtn(`dm`,       `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="dm">ДМ</button>`);
+    addBtn(`db`,       `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="db">ДБ</button>`);
+    addBtn(`soft`,     `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="soft">Стороннее ПО</button>`);
+    addBtn(`caps`,     `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="caps">CapsLook</button>`);
+    addBtn(`otkazano`, `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="otkazano">Нарушений нет</button>`);
+    addBtn(`malo`,     `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="malo">Нелогир Чат/Действие</button>`);
+    addBtn(`dublikat`, `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="dublikat">Дубликат</button>`);
+    addBtn(`time`,     `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="time">Нет /time</button>`);
+    addBtn(`fraps`,    `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="fraps">Неполный фрапс</button>`);
+    addBtn(`opra`,     `<button type="button" class="button ripple grozny-answer-btn" data-kind="red"    id="opra">Не работают док-ва</button>`);
+    addBtn(`selectAnswer`, `<button type="button" class="button ripple grozny-answer-btn" data-kind="orange" id="selectAnswer">Ответы</button>`);
+
+    if (!document.getElementById('groznyCustomPrefixBtn')) {
+      $toolbar.append(
+        `<button type="button" class="button ripple grozny-answer-btn" id="groznyCustomPrefixBtn" data-kind="yellow">Префиксы</button>`
       );
     }
   }
@@ -918,7 +978,6 @@
         e.stopPropagation();
 
         if (q.type === 'prefix') {
-          // Просто меняем префикс темы
           editThreadData(q.prefixId, !!q.pin);
           return;
         }
@@ -930,7 +989,7 @@
             return;
           }
           const data = getThreadData();
-          const send = q.type === 'template'; // true = отправить + поставить префикс
+          const send = q.type === 'template';
           pasteContent(idx, data, send);
         }
       });
