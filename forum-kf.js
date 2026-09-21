@@ -5,7 +5,7 @@
 // @description  Предложения по улучшению скрипта писать сюда ---> https://vk.com/salafi_nn
 // @description:ru Предложения по улучшению скрипта писать сюда ---> https://vk.com/salafi_nn
 // @description:uk Приятного использования ---> https://vk.com/salafi_nn
-// @version 2.9
+// @version 3.0
 // @namespace https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
