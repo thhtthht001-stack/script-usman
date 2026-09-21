@@ -2,7 +2,7 @@
 // @name         Ответы КО-ЗКО
 // @name:ru      Ответы КО-ЗКО
 // @description  Специально для BlackRussia
-// @version      3.9
+// @version      4.0
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
@@ -268,254 +268,258 @@
   const SPECY_PREFIX     = 11;
   const TEXY_PREFIX      = 13;
 
+  // Обёртка для всех ответов
+  const W = '[CENTER][SIZE=4][FONT=georgia]';
+  const WE = '[/FONT][/SIZE][/CENTER]';
+
     const buttons = [
     { title: `Жалобы на администрацию` },
     {
       title: `Проведена работа`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `С администратором будет проведена необходимая работа. Спасибо за обращение.<br><br>` +
-        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]`,
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + WE,
       prefix: ACCСEPT_PREFIX, status: false,
     },
     {
       title: `Проведена работа + снятие наказания`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `С администратором будет проведена необходимая работа. Ваше наказание будет снято в ближайшее время, если еще не снято. Приносим извинения за предоставленные неудобства.<br><br>` +
-        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]`,
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + WE,
       prefix: ACCСEPT_PREFIX, status: false,
     },
     {
       title: `Меры приняты`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `К администратору будут приняты необходимые меры. Спасибо за обращение.<br><br>` +
-        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]`,
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + WE,
       prefix: ACCСEPT_PREFIX, status: false,
     },
     {
       title: `Меры приняты + снятие наказания`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `К администратору будут приняты необходимые меры. Ваше наказание будет снято в ближайшее время, если еще не снято. Приносим извинения за предоставленные неудобства.<br><br>` +
-        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]`,
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + WE,
       prefix: ACCСEPT_PREFIX, status: false,
     },
     {
       title: `Наказание по ошибке`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Наказание было выдано по ошибке и будет снято в ближайшее время. Приносим извинения за предоставленные неудобства.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Администратор снят`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Администратор снят/ушел со своего поста.<br><br>` +
-        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]`,
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + WE,
       prefix: ACCСEPT_PREFIX, status: false,
     },
     {
       title: `На рассмотрении (запрос док-вы)`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Запросил доказательства у администратора.<br><br>` +
-        `[COLOR=rgb(255, 140, 0)]Ожидайте ответа.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 140, 0)]Ожидайте ответа.[/COLOR][/B]` + WE,
       prefix: PINN_PREFIX, status: true,
     },
     {
       title: `На рассмотрении`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба взята на рассмотрение.<br><br>` +
-        `[COLOR=rgb(255, 140, 0)]Ожидайте ответа.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 140, 0)]Ожидайте ответа.[/COLOR][/B]` + WE,
       prefix: PINN_PREFIX, status: true,
     },
     {
       title: `Наказание верное`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Проверив доказательства администратора, было принято решение, что наказание выдано верно.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `ЖБ не по форме`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба составлена [COLOR=rgb(255, 140, 0)]не по форме[/COLOR]. Ознакомьтесь с правилами подачи жалоб → [URL='https://forum.blackrussia.online/threads/Правила-подачи-жалоб-на-администрацию.3429349/']*Кликабельно*[/URL]<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Дубликат`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ответ вам был дан в предыдущей теме. За дальнейшее [COLOR=rgb(255, 140, 0)]дублирование тем[/COLOR] ваш форумный аккаунт будет заблокирован.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Жалоба уже на рассмотрении`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Подобная жалоба уже находится [COLOR=rgb(255, 140, 0)]на рассмотрении[/COLOR]. За дальнейшее дублирование тем ваш форумный аккаунт будет заблокирован.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Неадекват в ЖБ`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба составлена в [COLOR=rgb(255, 140, 0)]неадекватном формате[/COLOR]. Рассмотрению не подлежит.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Нет /myreports`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В вашей жалобе отсутствует [COLOR=rgb(255, 140, 0)]/myreports[/COLOR]. Прикрепите скриншот и подайте обращение заново.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Странная ссылка в док-в`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Предоставленная ссылка на доказательства вызывает подозрения и может быть [COLOR=rgb(255, 140, 0)]небезопасной[/COLOR] для перехода. Рекомендуем загрузить материалы на более надежные и известные фото- и видеохостинги, такие как Imgur, Япикс или YouTube.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Не достал/починил`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В рамках RolePlay администратор [COLOR=rgb(255, 140, 0)]не предоставляет услуги[/COLOR] по извлечению автомобиля из воды или его ремонту. Для выхода из ситуации вы можете воспользоваться доступными способами: вызвать такси, сесть на автобус или обратиться за помощью к другим игрокам.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `ЖБ от 3 лица`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Жалоба составлена от [COLOR=rgb(255, 140, 0)]3-го лица[/COLOR]. Рассмотрению не подлежит.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Прошло 48 часов`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `С момента выдачи наказания прошло более [COLOR=rgb(255, 140, 0)]48-ми часов[/COLOR]. В следующий при возникновении подобных ситуаций подавайте жалобы заранее.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Жалоба не подлежит рассмотрению.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Жалоба не подлежит рассмотрению.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Не по теме`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваше обращение [COLOR=rgb(255, 140, 0)]никаким образом не относится[/COLOR] к предназначению данного раздела. Пожалуйста, ознакомьтесь с его предназначением.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Нет нарушений`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Нарушения со стороны администратора [COLOR=rgb(0, 200, 83)]отсутствуют[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Док-ва из соц. сетей`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Доказательства из [COLOR=rgb(255, 140, 0)]социальных сетей не принимаются[/COLOR]. Загрузите материалы на фото- и видеохостинги, такие как Imgur, Япикс или YouTube.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Нет окна бана`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В вашей жалобе отсутствует [COLOR=rgb(255, 140, 0)]окно блокировки аккаунта[/COLOR]. Создайте новую тему и прикрепите его.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Не рабочие док-ва`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В вашей жалобе [COLOR=rgb(255, 140, 0)]нерабочие доказательства[/COLOR]. Загрузите их повторно на фото/видео хостинг и создайте новое обращение.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Нужен фрапс`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В данном случае нужна [COLOR=rgb(255, 140, 0)]видеофиксация (фрапс)[/COLOR], где будет полностью видна ситуация.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Док-ва обрываются`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваши доказательства [COLOR=rgb(255, 140, 0)]обрываются[/COLOR]. Дальнейшее рассмотрение жалобы не представляется возможным.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Док-ва отредактированы`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Представленные доказательства были подвергнуты [COLOR=rgb(255, 140, 0)]редактированию[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Подобные жалобы рассмотрению не подлежат.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Подобные жалобы рассмотрению не подлежат.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Док-ва в плохом качестве`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Создайте новое обращение, прикрепив доказательства в [COLOR=rgb(255, 140, 0)]более хорошем качестве[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Нет строки выдачи`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В ваших доказательствах отсутствует [COLOR=rgb(255, 140, 0)]строка выдачи наказания[/COLOR] от Администратора, следовательно жалоба не подлежит рассмотрению.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]` + WE,
       prefix: UNACCСEPT_PREFIX, status: false,
     },
     {
       title: `Мало док-в`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `[COLOR=rgb(255, 140, 0)]Недостаточно доказательств[/COLOR], которые могут подтвердить нарушение администратора.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]` + WE,
       prefix: UNACCСEPT_PREFIX, status: false,
     },
     {
       title: `Нет /time`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В предоставленных доказательствах отсутствует [COLOR=rgb(25, 0, 255)]/time[/COLOR]. Рассмотрению не подлежит.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Нет док-в в ЖБ`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `В вашей жалобе отсутствуют [COLOR=rgb(255, 140, 0)]доказательства[/COLOR] для её рассмотрения. Загрузите их на фото/видео хостинг и создайте новое обращение.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
 
@@ -523,142 +527,136 @@
     {
       title: `Жалобу в адм раздел`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Внимательно ознакомившись с вашей жалобой было принято решение, что вам нужно обратиться в [COLOR=rgb(255, 0, 0)]раздел жалоб на Администрацию[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `В раздел ОБЖ`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Внимательно ознакомившись с вашей жалобой было принято решение, что вам нужно обратиться в [COLOR=rgb(255, 140, 0)]раздел Обжалование[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `В раздел жалоб на игроков`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Внимательно ознакомившись с вашей жалобой было принято решение, что вам нужно обратиться в [COLOR=rgb(255, 140, 0)]раздел жалоб на игроков[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `В раздел жалоб на лидеров`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Внимательно ознакомившись с вашей жалобой было принято решение, что вам нужно обратиться в [COLOR=rgb(255, 140, 0)]раздел жалоб на лидеров[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Жалоба на теха`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Внимательно ознакомившись с вашей жалобой было принято решение, что вам нужно обратиться в [COLOR=rgb(255, 140, 0)]раздел жалоб на технических специалистов[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Передать ЗГА`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба передана [COLOR=rgb(255, 0, 0)]Основному Заместителю Главного Администратора[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]` + WE,
       prefix: PINN_PREFIX, status: true,
     },
     {
       title: `Передать ГА`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба летит на рассмотрение [COLOR=rgb(255, 0, 0)]Главному Администратору[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]` + WE,
       prefix: GA_PREFIX, status: true,
     },
     {
       title: `Спец. Админ`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба передана [COLOR=rgb(255, 0, 0)]Специальной Администрации[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]` + WE,
       prefix: SPECY_PREFIX, status: true,
     },
     {
       title: `Рук. модер`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба передана [COLOR=rgb(0, 26, 255)]Руководству модерации[/COLOR].<br><br>` +
-        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]` + WE,
       prefix: COMMAND_PREFIX, status: true,
     },
 
     { title: `Жалобы на лидеров` },
     {
       title: `Не по форме`,
-        content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+      content:
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Ваша жалоба составлена [COLOR=rgb(255, 140, 0)]не по форме[/COLOR]. Ознакомьтесь с правилами подачи жалоб на лидеров.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `Нету нарушений от лидера`,
-        content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+      content:
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Нарушений со стороный лидера нету.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]` + WE,
       prefix: UNACCСEPT_PREFIX, status: false,
     },
     {
       title: `Запрос док-вы у лидера`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Запросил доказательства у лидера.<br><br>` +
-        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 140, 0)]На рассмотрении.[/COLOR][/B]` + WE,
       prefix: PINN_PREFIX, status: false,
     },
     {
       title: `Лидер предоставил док-ву`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Лидер предоставил доказательства, наказание выдано верно.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
       title: `С лидером будет проведена беседа`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `С лидером будет проведена профилактическая беседа.<br><br>` +
-        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]`,
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + WE,
       prefix: ACCСEPT_PREFIX, status: false,
     },
     {
       title: `Лидер снят`,
       content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Лидер снят/ушёл со своего поста.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
     {
-     title: `Переадресация в гос раздел`,
-     content:
-        `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
+      title: `Переадресация в гос раздел`,
+      content:
+        W + `[B][COLOR=rgb(255, 0, 0)]{{greeting}}[/COLOR].<br><br>` +
         `Обратитесь в госсударственный раздел где вас уволили.<br><br>` +
-        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]`,
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + WE,
       prefix: CLOSE_PREFIX, status: false,
     },
   ];
 
-  /* ============================ КОНФИГ БЫСТРЫХ КНОПОК ============================
-     Тут описываются кнопки, которые появятся прямо на панели темы (рядом с "Ответить").
-     Типы:
-       type: 'prefix'   — просто ставит префикс теме (id префикса в prefixId, pin — закреплять ли)
-       type: 'template' — вставляет шаблон из массива buttons (по title) и отправляет
-       type: 'template-nosend' — вставляет шаблон, но НЕ отправляет (юзер сам жмёт "Ответить")
-  ============================================================================= */
+  /* ============================ КОНФИГ БЫСТРЫХ КНОПОК ============================ */
   const QUICK_BUTTONS = [
     { id: 'quickAccept',   title: 'Одобрено',           type: 'prefix',   prefixId: ACCСEPT_PREFIX,   pin: false, kind: 'green'  },
     { id: 'quickUnaccept', title: 'Отказано',           type: 'prefix',   prefixId: UNACCСEPT_PREFIX, pin: false, kind: 'red'    },
@@ -691,7 +689,6 @@
     );
   }
 
-  // Найти индекс шаблона в buttons по точному title
   function findTemplateIndex(title) {
     return buttons.findIndex(b => b.title === title && b.content);
   }
@@ -894,10 +891,8 @@
       return;
     }
 
-    // Быстрые кнопки (сначала, чтобы шли левее)
     QUICK_BUTTONS.forEach(q => addButton(q.title, q.id, q.kind));
 
-    // Служебные кнопки справа
     if (!document.getElementById('groznyCustomPrefixBtn')) {
       $('.button--icon--reply').before(
         `<button type="button" class="button ripple grozny-answer-btn" id="groznyCustomPrefixBtn" data-kind="yellow">ПРЕФИКСЫ</button>`
@@ -918,7 +913,6 @@
         e.stopPropagation();
 
         if (q.type === 'prefix') {
-          // Просто меняем префикс темы
           editThreadData(q.prefixId, !!q.pin);
           return;
         }
@@ -930,7 +924,7 @@
             return;
           }
           const data = getThreadData();
-          const send = q.type === 'template'; // true = отправить + поставить префикс
+          const send = q.type === 'template';
           pasteContent(idx, data, send);
         }
       });
