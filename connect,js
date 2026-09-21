@@ -30,9 +30,16 @@
     },
     {
       "id": "forum-kf",
-      "name": "Ответы Кураторов форума",
+      "name": "Ответы кураторов форума",
       "matches": ["https://forum.blackrussia.online/*"],
       "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/forum-kf.js",
+      "enabledDefault": true
+    },
+    {
+      "id": "forum-ko-zko",
+      "name": "Ответы КО-ЗКО",
+      "matches": ["https://forum.blackrussia.online/*"],
+      "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/forum-ko-zko.js",
       "enabledDefault": true
     }
   ]
