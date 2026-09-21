@@ -2,7 +2,7 @@
 // @name         Ответы КО-ЗКО
 // @name:ru      Ответы КО-ЗКО
 // @description  Специально для BlackRussia
-// @version      4.1
+// @version      3.9
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
