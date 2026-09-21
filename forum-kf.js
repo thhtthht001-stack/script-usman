@@ -5,7 +5,7 @@
 // @description  Предложения по улучшению скрипта писать сюда ---> https://vk.com/salafi_nn
 // @description:ru Предложения по улучшению скрипта писать сюда ---> https://vk.com/salafi_nn
 // @description:uk Приятного использования ---> https://vk.com/salafi_nn
-// @version 2.8
+// @version 2.9
 // @namespace https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
@@ -521,6 +521,12 @@
       status: false,
     },
     {
+	  title: `Приветствие`,
+      content: `[CENTER][SIZE=4][FONT=georgia][COLOR=rgb(255, 0, 0)]Доброго времени суток, уважаемый[/COLOR] {{ user.mention }}[/FONT][/SIZE]<br><br>`+
+		       `[CENTER] ваш текст [/CENTER]`,
+	  dpstyle: 'border-radius: 13px; margin-right: 5px; border: 2px solid; border-color: rgba(255, 140, 0, 0.8); font-family: UtromPressKachat',
+      prefix: UNACCСEPT_PREFIX,
+      status: false,
      title: `╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴Правила Role Play процесса ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴`,
     },
     {
