@@ -2,7 +2,7 @@
 // @name         Ответы КО-ЗКО
 // @name:ru      Ответы КО-ЗКО
 // @description  Специально для BlackRussia
-// @version      4.5
+// @version      4.6
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
@@ -639,7 +639,7 @@
       prefix: ACCСEPT_PREFIX, status: false,
     },
     {
-      title: `Лидер снят`,
+      title: `Лидер ранее ушёл/снят`,
       content:
         G +
         `[B]Лидер снят/ушёл со своего поста.<br><br>` +
@@ -653,6 +653,30 @@
         `[B]Обратитесь в госсударственный раздел где вас уволили.<br><br>` +
         `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + E,
       prefix: CLOSE_PREFIX, status: false,
+    },
+    {
+      title: `Лидер будет наказан`,
+      content:
+        G +
+        `[B]Лидеру было выдано соответствующее наказание.<br><br>` +
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
+      prefix: ACCCERT_PREFIX, status: false,
+    },
+    {
+      title: `Игрок будет восстановлен на свою должность`,
+      content:
+        G +
+        `[B]Вы будете восстановлены на должность, приносим свои извинения.<br><br>` +
+        `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + E,
+      prefix: ACCCERT_PREFIX, status: false,
+    },
+    {
+      title: `С лидером будет проведена строгая беседа`,
+      content:
+        G +
+        `[B]С лидером была проведена строгая беседа..<br><br>` +
+        `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
+      prefix: ACCСEPT_PREFIX, status: false,
     },
   ];
 
