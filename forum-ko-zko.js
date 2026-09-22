@@ -2,7 +2,7 @@
 // @name         Ответы КО-ЗКО
 // @name:ru      Ответы КО-ЗКО
 // @description  Специально для BlackRussia
-// @version      4.6
+// @version      4.6.1
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/threads/*
 // @include      https://forum.blackrussia.online/threads/
@@ -13,7 +13,7 @@
 // ==/UserScript==
 
 (function () {
-  `use strict`;
+  'use strict';
 
   /* ================== GROZNY SERIOUS / MODERN ANIMATED UI ================== */
   (function () {
@@ -256,18 +256,18 @@
   })();
 
   /* ============================ ПРЕФИКСЫ ============================ */
-  const UNACCСEPT_PREFIX = 4;
-  const ACCСEPT_PREFIX   = 8;
-  const RESHENO_PREFIX   = 6;
-  const PINN_PREFIX      = 2;
-  const GA_PREFIX        = 12;
-  const COMMAND_PREFIX   = 10;
-  const WATCHED_PREFIX   = 9;
-  const CLOSE_PREFIX     = 7;
-  const SPECY_PREFIX     = 11;
-  const TEXY_PREFIX      = 13;
+  const UNACCEPT_PREFIX   = 4;
+  const ACCEPT_PREFIX     = 8;
+  const RESHENO_PREFIX    = 6;
+  const PINN_PREFIX       = 2;
+  const GA_PREFIX         = 12;
+  const COMMAND_PREFIX    = 10;
+  const WATCHED_PREFIX    = 9;
+  const CLOSE_PREFIX      = 7;
+  const SPECY_PREFIX      = 11;
+  const TECH_PREFIX       = 13;
 
-  // G — открывает приветствие (Georgia) и открывает Arial + центр для основного текста
+  // G — открывает приветствие и открывает Arial + центр для основного текста
   // E — закрывает Arial + центр
   const G = `[CENTER][SIZE=4][FONT=georgia][B][COLOR=rgb(255, 0, 0)]Доброго времени суток, уважаемый [/COLOR][COLOR=rgb(255, 0, 0)]{{ user.mention }}[/COLOR].[/B][/FONT][/SIZE][/CENTER]<br><br>[CENTER][FONT=arial]`;
   const E = `[/FONT][/CENTER]`;
@@ -280,7 +280,7 @@
         G +
         `[B]С администратором будет проведена необходимая работа. Спасибо за обращение.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCСEPT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `Проведена работа + снятие наказания`,
@@ -288,7 +288,7 @@
         G +
         `[B]С администратором будет проведена необходимая работа. Ваше наказание будет снято в ближайшее время, если еще не снято. Приносим извинения за предоставленные неудобства.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCСEPT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `Меры приняты`,
@@ -296,7 +296,7 @@
         G +
         `[B]К администратору будут приняты необходимые меры. Спасибо за обращение.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCСEPT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `Меры приняты + снятие наказания`,
@@ -304,7 +304,7 @@
         G +
         `[B]К администратору будут приняты необходимые меры. Ваше наказание будет снято в ближайшее время, если еще не снято. Приносим извинения за предоставленные неудобства.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCСEPT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `Наказание по ошибке`,
@@ -320,7 +320,7 @@
         G +
         `[B]Администратор снят/ушел со своего поста.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCСEPT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `На рассмотрении (запрос док-вы)`,
@@ -496,7 +496,7 @@
         G +
         `[B]В ваших доказательствах отсутствует [COLOR=rgb(255, 140, 0)]строка выдачи наказания[/COLOR] от Администратора, следовательно жалоба не подлежит рассмотрению.<br><br>` +
         `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]` + E,
-      prefix: UNACCСEPT_PREFIX, status: false,
+      prefix: UNACCEPT_PREFIX, status: false,
     },
     {
       title: `Мало док-в`,
@@ -504,7 +504,7 @@
         G +
         `[B][COLOR=rgb(255, 140, 0)]Недостаточно доказательств[/COLOR], которые могут подтвердить нарушение администратора.<br><br>` +
         `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]` + E,
-      prefix: UNACCСEPT_PREFIX, status: false,
+      prefix: UNACCEPT_PREFIX, status: false,
     },
     {
       title: `Нет /time`,
@@ -612,7 +612,7 @@
         G +
         `[B]Нарушений со стороный лидера нету.<br><br>` +
         `[COLOR=rgb(255, 0, 0)]Отказано.[/COLOR][/B]` + E,
-      prefix: UNACCСEPT_PREFIX, status: false,
+      prefix: UNACCEPT_PREFIX, status: false,
     },
     {
       title: `Запрос док-вы у лидера`,
@@ -636,7 +636,7 @@
         G +
         `[B]С лидером будет проведена профилактическая беседа.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCСEPT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `Лидер ранее ушёл/снят`,
@@ -660,7 +660,7 @@
         G +
         `[B]Лидеру было выдано соответствующее наказание.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCCERT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `Игрок будет восстановлен на свою должность`,
@@ -668,24 +668,24 @@
         G +
         `[B]Вы будете восстановлены на должность, приносим свои извинения.<br><br>` +
         `[COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/B]` + E,
-      prefix: ACCCERT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
     {
       title: `С лидером будет проведена строгая беседа`,
       content:
         G +
-        `[B]С лидером была проведена строгая беседа..<br><br>` +
+        `[B]С лидером была проведена строгая беседа.<br><br>` +
         `[COLOR=rgb(0, 200, 83)]Одобрено.[/COLOR][/B]` + E,
-      prefix: ACCСEPT_PREFIX, status: false,
+      prefix: ACCEPT_PREFIX, status: false,
     },
   ];
 
   /* ============================ КОНФИГ БЫСТРЫХ КНОПОК ============================ */
   const QUICK_BUTTONS = [
-    { id: 'quickAccept',   title: 'Одобрено',           type: 'prefix',   prefixId: ACCСEPT_PREFIX,   pin: false, kind: 'green'  },
-    { id: 'quickUnaccept', title: 'Отказано',           type: 'prefix',   prefixId: UNACCСEPT_PREFIX, pin: false, kind: 'red'    },
-    { id: 'quickClose',    title: 'Закрыто',            type: 'prefix',   prefixId: CLOSE_PREFIX,     pin: false, kind: 'red'    },
-    { id: 'quickPin',      title: 'На рассмотрении',    type: 'prefix',   prefixId: PINN_PREFIX,      pin: true,  kind: 'orange' },
+    { id: 'quickAccept',   title: 'Одобрено',           type: 'prefix',   prefixId: ACCEPT_PREFIX,   pin: false, kind: 'green'  },
+    { id: 'quickUnaccept', title: 'Отказано',           type: 'prefix',   prefixId: UNACCEPT_PREFIX, pin: false, kind: 'red'    },
+    { id: 'quickClose',    title: 'Закрыто',            type: 'prefix',   prefixId: CLOSE_PREFIX,    pin: false, kind: 'red'    },
+    { id: 'quickPin',      title: 'На рассмотрении',    type: 'prefix',   prefixId: PINN_PREFIX,     pin: true,  kind: 'orange' },
 
     { id: 'quickDubl',     title: 'Дубликат',           type: 'template', templateTitle: 'Дубликат',         kind: 'red'    },
     { id: 'quickForm',     title: 'Не по форме',        type: 'template', templateTitle: 'ЖБ не по форме',   kind: 'red'    },
@@ -725,23 +725,46 @@
     }).join('')}</div>`;
   }
 
+  function ensureHandlebars() {
+    if (window.Handlebars) return Promise.resolve(window.Handlebars);
+    return new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-grozny-handlebars]');
+      if (existing) {
+        existing.addEventListener('load', () => resolve(window.Handlebars));
+        existing.addEventListener('error', reject);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js';
+      script.dataset.groznyHandlebars = '1';
+      script.onload = () => resolve(window.Handlebars);
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  }
+
   function pasteContent(id, data = {}, send = false) {
     const btn = buttons[id];
     if (!btn || !btn.content) return;
-    const template = Handlebars.compile(btn.content);
-    $(`div.fr-element.fr-view`).empty();
-    $(`span.fr-placeholder`).empty();
-    $(`div.fr-element.fr-view`).append(`<p>${template(data)}</p>`);
-    $(`a.overlay-titleCloser`).trigger(`click`);
 
-    if (send === true && btn.prefix !== undefined) {
-      editThreadData(btn.prefix, btn.status);
-      $(`.button--icon.button--icon--reply.rippleButton`).trigger(`click`);
-    }
+    ensureHandlebars().then((Handlebars) => {
+      const template = Handlebars.compile(btn.content);
+      $('div.fr-element.fr-view').empty();
+      $('span.fr-placeholder').empty();
+      $('div.fr-element.fr-view').append(`<p>${template(data)}</p>`);
+      $('a.overlay-titleCloser').trigger('click');
+
+      if (send === true && btn.prefix !== undefined) {
+        editThreadData(btn.prefix, btn.status);
+        $('.button--icon.button--icon--reply.rippleButton').trigger('click');
+      }
+    }).catch(() => {
+      alert('Не удалось загрузить Handlebars. Проверьте подключение к интернету.');
+    });
   }
 
   function getThreadData() {
-    const $author = $(`a.username`).first();
+    const $author = $('a.username').first();
     const greeting = 'Доброго времени суток';
 
     if (!$author.length) {
@@ -759,6 +782,20 @@
     };
   }
 
+  function threadEditUrl() {
+    const base = (XF && XF.config && XF.config.url && XF.config.url.fullBase) || location.origin;
+    const relative = location.href.split(base)[1] || location.pathname;
+    const clean = relative.endsWith('/') ? relative.slice(0, -1) : relative;
+    return `${base}${clean}/edit`;
+  }
+
+  function threadMoveUrl() {
+    const base = (XF && XF.config && XF.config.url && XF.config.url.fullBase) || location.origin;
+    const relative = location.href.split(base)[1] || location.pathname;
+    const clean = relative.endsWith('/') ? relative.slice(0, -1) : relative;
+    return `${base}${clean}/move`;
+  }
+
   function editThreadData(prefix, pin = false) {
     const titleEl = document.querySelector('.p-title-value');
     if (!titleEl || !titleEl.lastChild) return;
@@ -768,14 +805,18 @@
       prefix_id: prefix,
       title: threadTitle,
       _xfToken: XF.config.csrf,
-      _xfRequestUri: document.URL.split(XF.config.url.fullBase)[1],
+      _xfRequestUri: (() => {
+        const base = XF.config.url.fullBase;
+        const rel = document.URL.split(base)[1] || location.pathname;
+        return rel.endsWith('/') ? rel.slice(0, -1) + '/' : rel;
+      })(),
       _xfWithData: 1,
-      _xfResponseType: `json`,
+      _xfResponseType: 'json',
     };
     if (pin === true) payload.pin = 1;
 
-    fetch(`${document.URL}edit`, {
-      method: `POST`,
+    fetch(threadEditUrl(), {
+      method: 'POST',
       body: getFormData(payload),
     }).then(() => location.reload());
   }
@@ -785,20 +826,20 @@
     if (!titleEl || !titleEl.lastChild) return;
     const threadTitle = titleEl.lastChild.textContent;
 
-    fetch(`${document.URL}move`, {
-      method: `POST`,
+    fetch(threadMoveUrl(), {
+      method: 'POST',
       body: getFormData({
         prefix_id: prefix,
         title: threadTitle,
         target_node_id: type,
-        redirect_type: `none`,
+        redirect_type: 'none',
         notify_watchers: 1,
         starter_alert: 1,
         starter_alert_reason: 1,
         _xfToken: XF.config.csrf,
         _xfRequestUri: document.URL.split(XF.config.url.fullBase)[1],
         _xfWithData: 1,
-        _xfResponseType: `json`,
+        _xfResponseType: 'json',
       }),
     }).then(() => location.reload());
   }
@@ -830,15 +871,15 @@
     container.className = 'grozny-prefix-grid';
 
     const prefixes = [
-      { name: 'На рассмотрении', id: 2,  pin: true,  color: '#FF9800' },
-      { name: 'Одобрено',        id: 8,  pin: false, color: '#4CAF50' },
-      { name: 'Отказано',        id: 4,  pin: false, color: '#D32F2F' },
-      { name: 'Закрыто',         id: 7,  pin: false, color: '#D32F2F' },
-      { name: 'Решено',          id: 6,  pin: false, color: '#4CAF50' },
-      { name: 'Главному администратору', id: 12, pin: true, color: '#e74c3c' },
-      { name: 'Тех. специалисту', id: 13, pin: true, color: '#0D47A1' },
-      { name: 'Команда проекта', id: 10, pin: true, color: '#FFEB3B' },
-      { name: 'Специальному администратору', id: 11, pin: true, color: '#DB2309' },
+      { name: 'На рассмотрении', id: PINN_PREFIX,    pin: true,  color: '#FF9800' },
+      { name: 'Одобрено',        id: ACCEPT_PREFIX,  pin: false, color: '#4CAF50' },
+      { name: 'Отказано',        id: UNACCEPT_PREFIX,pin: false, color: '#D32F2F' },
+      { name: 'Закрыто',         id: CLOSE_PREFIX,   pin: false, color: '#D32F2F' },
+      { name: 'Решено',          id: RESHENO_PREFIX, pin: false, color: '#4CAF50' },
+      { name: 'Главному администратору', id: GA_PREFIX,     pin: true, color: '#e74c3c' },
+      { name: 'Тех. специалисту', id: TECH_PREFIX,          pin: true, color: '#0D47A1' },
+      { name: 'Команда проекта',  id: COMMAND_PREFIX,       pin: true, color: '#FFEB3B' },
+      { name: 'Специальному администратору', id: SPECY_PREFIX, pin: true, color: '#DB2309' },
     ];
 
     for (let i = 0; i < prefixes.length; i++) {
@@ -952,9 +993,8 @@
 
   /* ============================ ТОЧКА ВХОДА ============================ */
   $(document).ready(() => {
-    if (!window.Handlebars) {
-      $(`body`).append(`<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>`);
-    }
+    // Предзагружаем Handlebars, чтобы к моменту клика он уже был готов.
+    ensureHandlebars().catch(() => {});
 
     ensureToolbarButtons();
     bindQuickButtons();
