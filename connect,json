@@ -6,7 +6,7 @@
       "matches": ["https://forum.blackrussia.online/*"],
       "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/buttonn.js",
       "enabledDefault": true,
-      "group": "Переходники"
+      "group": "buttons"
     },
     {
       "id": "button-ko-zko",
@@ -14,7 +14,7 @@
       "matches": ["https://forum.blackrussia.online/*"],
       "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/button-ko-zko.js",
       "enabledDefault": true,
-      "group": "Переходники"
+      "group": "buttons"
     },
     {
       "id": "perenos",
@@ -43,7 +43,7 @@
       "matches": ["https://forum.blackrussia.online/*"],
       "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/forum-kf.js",
       "enabledDefault": true,
-      "group": "Ответы"
+      "group": "otvety"
     },
     {
       "id": "forum-ko-zko",
@@ -51,7 +51,7 @@
       "matches": ["https://forum.blackrussia.online/*"],
       "url": "https://raw.githubusercontent.com/thhtthht001-stack/script-usman/refs/heads/main/forum-ko-zko.js",
       "enabledDefault": true,
-      "group": "Ответы"
+      "group": "otvety"
     }
   ]
 }
