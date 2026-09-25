@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         ✦ Black Russia Style (Chief Edition) v20.0.5
+// @name         ✦ Black Russia Style (Chief Edition) v20.0.6
 // @namespace    https://forum.blackrussia.online
-// @version      20.0.5
-// @description  Полная кастомизация форума + кнопка всегда рядом с bgButton + док с квадратной формой + исправлено открытие настроек
+// @version      20.0.6
+// @description  Полная кастомизация форума + кнопка всегда рядом с bgButton + док с квадратной формой + исправлено открытие настроек + адаптив для iOS
 // @author       Tyzz_Unqwerdezz (модификация)
 // @match        https://forum.blackrussia.online/*
 // @grant        GM_getValue
@@ -396,7 +396,7 @@
             /* ===== Док ===== */
             .br-dock {
                 position: fixed;
-                bottom: calc(var(--br-dock-bot) + env(safe-area-inset-bottom));
+                bottom: calc(var(--br-dock-bot) + env(safe-area-inset-bottom, 0px));
                 left: 50%;
                 transform: translateX(-50%);
                 height: 56px;
@@ -444,7 +444,7 @@
 
             /* Позиции дока */
             html[br-dock-pos="bottom"] .br-dock {
-                bottom: calc(var(--br-dock-bot) + env(safe-area-inset-bottom));
+                bottom: calc(var(--br-dock-bot) + env(safe-area-inset-bottom, 0px));
                 left: 50%;
                 transform: translateX(-50%);
                 top: auto;
@@ -726,6 +726,46 @@
             html[br-acc-menu="glass"] .menu-content .menu-linkRow, html[br-acc-menu="glass"] .offCanvasMenu-content .menu-linkRow { color: #fff !important; }
             html[br-acc-menu="neon"] .menu-content, html[br-acc-menu="neon"] .offCanvasMenu-content { background: #0a0a0c !important; border: 1px solid var(--br-primary) !important; box-shadow: 0 0 20px var(--br-primary), inset 0 0 10px var(--br-primary) !important; }
             html[br-acc-menu="dark"] .menu-content, html[br-acc-menu="dark"] .offCanvasMenu-content { background: #111 !important; border: 1px solid rgba(255,255,255,0.05) !important; }
+
+            /* ═══════════════════════════════════════════════════════════
+               FIX для iPhone / Android — крупная шестерёнка, safe-area
+               ═══════════════════════════════════════════════════════════ */
+            @media (max-width: 900px) {
+                .br-dock {
+                    height: 64px !important;
+                    padding: 0 10px !important;
+                    max-width: calc(100vw - 16px) !important;
+                }
+                .br-dock-gear {
+                    min-width: 52px !important;
+                    min-height: 52px !important;
+                    font-size: 26px !important;
+                    padding: 0 10px !important;
+                    display: inline-flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                html[br-dock-pos="bottom"] .br-dock {
+                    height: 64px !important;
+                    padding: 0 14px !important;
+                }
+                html[br-dock-pos="top"] .br-dock {
+                    height: 40px !important;
+                }
+                html[br-dock-pos="top"] .br-dock-gear {
+                    min-width: 40px !important;
+                    min-height: 40px !important;
+                    font-size: 20px !important;
+                }
+            }
+
+            @media (max-width: 500px) {
+                .br-dock-gear {
+                    min-width: 56px !important;
+                    min-height: 56px !important;
+                    font-size: 28px !important;
+                }
+            }
             `;
             const style = document.createElement('style');
             style.innerHTML = css;
@@ -806,16 +846,12 @@
                 this.dockElement = dock;
 
                 if (d.dockPosition === 'top') {
-                    // Вставляем док в верхнюю панель
                     this.insertIntoTopBar(dock);
-                    // Запускаем observer для отслеживания bgButton
                     this.startObserver(dock);
                 } else {
-                    // Вставляем док фиксированно
                     (document.body || document.documentElement).appendChild(dock);
                 }
             } else {
-                // Док выключен — вставляем только кнопку в верхнюю панель
                 this.insertIntoTopBar(gear);
                 this.startObserver(gear);
             }
@@ -867,7 +903,6 @@
                 return;
             }
 
-            // Fallback
             document.body.appendChild(element);
             element.style.position = 'fixed';
             element.style.top = '10px';
