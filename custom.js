@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         ✦ Black Russia Style (Chief Edition) v20.0.6
+// @name         ✦ Black Russia Style (Chief Edition) v20.0.7
 // @namespace    https://forum.blackrussia.online
-// @version      20.0.6
-// @description  Полная кастомизация форума + кнопка всегда рядом с bgButton + док с квадратной формой + исправлено открытие настроек + адаптив для iOS
+// @version      20.0.7
+// @description  Полная кастомизация форума + кнопка всегда рядом с bgButton + док с квадратной формой + исправлено открытие настроек + адаптив для iOS + фикс viewport на мобильных
 // @author       Tyzz_Unqwerdezz (модификация)
 // @match        https://forum.blackrussia.online/*
 // @grant        GM_getValue
@@ -170,20 +170,38 @@
 
         update(d) {
             const r = document.documentElement.style;
-            if (d.uiScaleEnabled) {
-                if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-                    let vp = document.querySelector('meta[name="viewport"]');
-                    if (!vp) { vp = document.createElement('meta'); vp.name = 'viewport'; document.head.appendChild(vp); }
-                    vp.content = `width=device-width, initial-scale=${d.uiScale / 100}, maximum-scale=3.0`;
-                    r.zoom = '';
-                } else {
-                    r.zoom = d.uiScale + '%';
-                }
-            } else {
-                let vp = document.querySelector('meta[name="viewport"]');
-                if (vp) vp.content = 'width=device-width, initial-scale=1.0, maximum-scale=3.0';
-                r.zoom = '';
+
+            // ═══════════════════════════════════════════════════════
+            //   ФИКС VIEWPORT — всегда мобильный на телефоне
+            // ═══════════════════════════════════════════════════════
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod|Tablet/i.test(navigator.userAgent)
+                          || ('ontouchstart' in window && window.innerWidth < 900);
+
+            let vp = document.querySelector('meta[name="viewport"]');
+            if (!vp) {
+                vp = document.createElement('meta');
+                vp.name = 'viewport';
+                (document.head || document.documentElement).appendChild(vp);
             }
+
+            if (isMobile) {
+                if (d.uiScaleEnabled) {
+                    const scale = Math.max(0.5, Math.min(1.5, d.uiScale / 100));
+                    vp.content = `width=device-width, initial-scale=${scale}, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover`;
+                } else {
+                    vp.content = 'width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover';
+                }
+                r.removeProperty('zoom');
+                document.documentElement.style.removeProperty('zoom');
+            } else {
+                if (d.uiScaleEnabled) {
+                    r.setProperty('zoom', d.uiScale + '%');
+                } else {
+                    r.removeProperty('zoom');
+                }
+            }
+            // ═══════════════════════════════════════════════════════
+
             r.setProperty('--br-bg', `url('${d.bg}')`);
             r.setProperty('--br-primary', d.primary);
             r.setProperty('--br-accent', d.accent);
@@ -817,7 +835,6 @@
 
             const d = this.state.get();
 
-            // 1. Создаём кнопку
             const gear = document.createElement('button');
             gear.className = 'br-dock-gear';
             gear.textContent = '⚡';
@@ -838,7 +855,6 @@
             });
             this.gearElement = gear;
 
-            // 2. Если док включён — создаём док и помещаем кнопку в него
             if (d.dockEnabled) {
                 const dock = document.createElement('div');
                 dock.className = 'br-dock';
