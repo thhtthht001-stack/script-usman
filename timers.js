@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIMERS
 // @description  Показывает таймер оставшегося времени / просрочки для закреплённых тем в разделе Жалобы на игроков
-// @version      1.2
+// @version      1.3
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/forums/*
 // @match        https://forum.blackrussia.online/threads/*
@@ -18,9 +18,9 @@
 
     // === НАСТРОЙКИ ===
     const MAX_ALLOWED_HOURS = 48;                 // лимит на рассмотрение (в часах)
-    const SECTION_IDS = ['1614'];                 // ID раздела «Жалобы на игроков» (число после точки в ссылке раздела)
-    const SECTION_TITLE_RE = /жалоб[аы]\s+на\s+игроков/i; // запасной вариант: определить раздел по названию
-    const UPDATE_EVERY_MS = 30 * 1000;            // как часто обновлять таймеры
+    const SECTION_IDS = ['1614'];                 // ID раздела «Жалобы на игроков»
+    const SECTION_TITLE_RE = /жалоб[аы]\s+на\s+игроков/i;
+    const UPDATE_EVERY_MS = 30 * 1000;            
     const LIMIT_MS = MAX_ALLOWED_HOURS * 60 * 60 * 1000;
 
     // === ПРОВЕРКА РАЗДЕЛА ===
@@ -45,16 +45,21 @@
             .gkf-exact-timer {
                 display: inline-block;
                 float: right;
-                font: 700 11px/1.2 sans-serif;
-                margin-top: 4px;
-                padding: 4px 12px;
+                font: 600 11px/1.2 sans-serif; /* Чуть менее жирный шрифт, как на скрине */
+                margin-top: 1px; /* Выравнивание по строке */
+                padding: 4px 10px;
                 border-radius: 20px;
-                color: #ffffff;
                 pointer-events: none;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                /* Убрана тень для более плоского дизайна */
             }
-            .gkf-exact-timer.gkf-ok { background: #374A48; }
+            /* Стиль для зеленого таймера (Осталось) */
+            .gkf-exact-timer.gkf-ok { 
+                color: #5ec28c; /* Светло-зеленый текст */
+                background: #1e3126; /* Темно-зеленый фон */
+            }
+            /* Стиль для красного таймера (Просрочено) */
             .gkf-exact-timer.gkf-over {
+                color: #ff6b6b;
                 background: linear-gradient(90deg, #dc3545 0%, #ff6b6b 40%, #ffffff 50%, #ff6b6b 60%, #dc3545 100%);
                 background-size: 200% auto;
                 animation: gkfGlowLaser 2.5s linear infinite;
@@ -84,7 +89,6 @@
             }
         }
 
-        // Запасной разбор по тексту: «Сегодня в 04:03» / «Вчера в 23:10»
         const m = dateEl.textContent.match(/(Сегодня|Вчера)\s+в\s+(\d{1,2}):(\d{2})/i);
         if (m) {
             const d = new Date();
@@ -155,7 +159,6 @@
         let countOverdue = 0;
 
         items.forEach(item => {
-            // Подсчёт меток
             const label = item.querySelector('.labelLink, .label, .structItem-status--label');
             if (label) {
                 const t = label.innerText.trim().toLowerCase();
@@ -163,13 +166,11 @@
                 else if (t.includes('тех') || t.includes('спец') || t.includes('теху')) countTech++;
             }
 
-            // Таймер: создаём один раз, дальше только обновляем
             let timer = item.querySelector('.gkf-exact-timer');
             if (!timer) timer = addTimer(item);
             if (timer && updateTimer(timer, item)) countOverdue++;
         });
 
-        // === КАСТОМНЫЙ ЗАГОЛОВОК НАД ЗАКРЕПЛЁННЫМИ ТЕМАМИ ===
         const headers = document.querySelectorAll('.structItemContainer-groupBlockHeader, .block-header');
         for (const h of headers) {
             const up = h.innerText.toUpperCase();
@@ -196,7 +197,7 @@
             ' | ПРОСРОЧЕК: ' + countOverdue;
     }
 
-    // === НАБЛЮДАТЕЛЬ (с дебаунсом, игнорирует свои вставки) ===
+    // === НАБЛЮДАТЕЛЬ ===
     function startObserver() {
         const target = document.querySelector('.p-body-pageContent');
         if (!target) return;
@@ -221,7 +222,7 @@
     function init() {
         refresh();
         startObserver();
-        setInterval(refresh, UPDATE_EVERY_MS); // таймеры тикают сами, без перезагрузки страницы
+        setInterval(refresh, UPDATE_EVERY_MS); 
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
