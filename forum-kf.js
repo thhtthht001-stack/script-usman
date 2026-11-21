@@ -22,6 +22,10 @@
 (function () {
   `use strict`;
 
+  // === ИСПРАВЛЕНИЕ 1: защита от повторного запуска всего скрипта ===
+  if (window.__GROZNY_CURATOR__) return;
+  window.__GROZNY_CURATOR__ = true;
+
   /* === GROZNY SERIOUS / MODERN ANIMATED UI === */
   (function () {
     if (document.getElementById("grozny-dark-theme")) return;
@@ -388,7 +392,8 @@
   function analyzeAgeLogic(text) {
     let alerts = [];
     const ageMatch = text.match(/Возраст\s*:\s*(\d+)/i);
-    let mainAge = ageMatch ? parseInt(ageMatch, 10) : null;
+    // === ИСПРАВЛЕНИЕ 3: берём число из группы [1], а не весь массив ===
+    let mainAge = ageMatch ? parseInt(ageMatch[1], 10) : null;
 
     if (mainAge !== null) {
       if (mainAge < 18) {
@@ -423,6 +428,11 @@
     if (!isBioSection()) return;
 
     const text = getBioText(); if (!text) return;
+
+    // === ИСПРАВЛЕНИЕ 2: не создавать второй виджет и не запускать проверку параллельно ===
+    if (window.__bioRunning || document.getElementById('bio-checker-advanced-widget')) return;
+    window.__bioRunning = true;
+
     const quickReplyForm = document.querySelector('.js-quickReply');
 
     let loadingPlaceholder = document.getElementById('bio-loading-pl');
@@ -521,12 +531,15 @@
       status: false,
     },
     {
-	  title: `Приветствие`,
+      title: `Приветствие`,
       content: `[CENTER][SIZE=4][FONT=georgia][COLOR=rgb(255, 0, 0)]Доброго времени суток, уважаемый[/COLOR] {{ user.mention }}[/FONT][/SIZE]<br><br>`+
-		       `[CENTER] ваш текст [/CENTER]`,
+               `[CENTER] ваш текст [/CENTER]`,
       prefix: UNACCСEPT_PREFIX,
       status: false,
-     title: `╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴Правила Role Play процесса ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴`,
+    },
+    // === ИСПРАВЛЕНИЕ 4: заголовок раздела вынесен в отдельный элемент ===
+    {
+      title: `╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴Правила Role Play процесса ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴`,
     },
     {
       title: `Нонрп поведение`,
@@ -918,7 +931,7 @@
       title: `Жалобу на сотрудника`,
       content: `[CENTER][SIZE=4][FONT=georgia][COLOR=rgb(255, 0, 0)]Доброго времени суток, уважаемый[/COLOR] {{ user.mention }}[/CENTER]<br><br>`+
         `[CENTER]Вы ошиблись с разделом. Обратитесь в раздел жалобы на сотрудников.[/CENTER]<br><br>` +
-		`[CENTER][COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/CENTER]`,
+        `[CENTER][COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/CENTER]`,
       prefix: CLOSE_PREFIX,
       status: false,
     },
@@ -926,7 +939,7 @@
       title: `Жалобу на лидера`,
       content: `[CENTER][SIZE=4][FONT=georgia][COLOR=rgb(255, 0, 0)]Доброго времени суток, уважаемый[/COLOR] {{ user.mention }}[/CENTER]<br><br>`+
         `[CENTER]Вы ошиблись с разделом. Обратитесь в раздел жалобы на лидеров.[/CENTER]<br><br>` +
-		`[CENTER][COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/CENTER]`,
+        `[CENTER][COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/CENTER]`,
       prefix: CLOSE_PREFIX,
       status: false,
     },
@@ -1362,7 +1375,7 @@
       title: `Не работают доква`,
       content: `[CENTER][SIZE=4][FONT=georgia][COLOR=rgb(255, 0, 0)]Доброго времени суток, уважаемый[/COLOR] {{ user.mention }}[/FONT][/SIZE][/CENTER]<br><br>`+
         `[CENTER]Не работают доказательства[/CENTER]<br><br>` +
-		`[CENTER][COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/CENTER]`,
+        `[CENTER][COLOR=rgb(255, 0, 0)]Закрыто.[/COLOR][/CENTER]`,
       prefix: UNACCСEPT_PREFIX,
       status: false,
     },
@@ -1460,8 +1473,7 @@
     };
   }
 
-  // === ОДИН запрос — одна перезагрузка. Убрано дублирование. ===
-  function editThreadData(prefix, pin = false) {
+  function editThreadData(prefix, pin = false, manageState = false) {
     const titleEl = document.querySelector('.p-title-value');
     if (!titleEl || !titleEl.lastChild) return;
     const threadTitle = titleEl.lastChild.textContent;
@@ -1474,7 +1486,18 @@
       _xfWithData: 1,
       _xfResponseType: `json`,
     };
-    if (pin === true) payload.pin = 1;
+
+    // Закрепить. Если sticky не передан, тема откреплится
+    if (pin === true) {
+      payload.pin = 1;
+      payload.sticky = 1;
+    }
+
+    // Только для выбора через окно префиксов:
+    // закреплённая тема остаётся открытой, остальные закрываются
+    if (manageState === true) {
+      payload.discussion_open = pin ? 1 : 0;
+    }
 
     fetch(`${document.URL}edit`, {
       method: `POST`,
@@ -1558,7 +1581,7 @@
       btn.onclick = (function (prefixId, needPin) {
         return function () {
           overlay.remove();
-          editThreadData(prefixId, needPin);
+          editThreadData(prefixId, needPin, true);
         };
       })(p.id, p.pin);
 
