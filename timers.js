@@ -53,7 +53,7 @@
                 pointer-events: none;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.3);
             }
-            .gkf-exact-timer.gkf-ok { background: #2ebd59; }
+            .gkf-exact-timer.gkf-ok { background: #374A48; }
             .gkf-exact-timer.gkf-over {
                 background: linear-gradient(90deg, #dc3545 0%, #ff6b6b 40%, #ffffff 50%, #ff6b6b 60%, #dc3545 100%);
                 background-size: 200% auto;
