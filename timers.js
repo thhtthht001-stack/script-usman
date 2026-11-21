@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIMERS
 // @description  Показывает таймер оставшегося времени / просрочки для закреплённых тем в разделе Жалобы на игроков
-// @version      1.3
+// @version      1.4
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/forums/*
 // @match        https://forum.blackrussia.online/threads/*
@@ -45,17 +45,17 @@
             .gkf-exact-timer {
                 display: inline-block;
                 float: right;
-                font: 600 11px/1.2 sans-serif; /* Чуть менее жирный шрифт, как на скрине */
-                margin-top: 1px; /* Выравнивание по строке */
+                font: 600 11px/1.2 sans-serif;
+                margin-top: 1px;
                 padding: 4px 10px;
                 border-radius: 20px;
                 pointer-events: none;
-                /* Убрана тень для более плоского дизайна */
             }
             /* Стиль для зеленого таймера (Осталось) */
             .gkf-exact-timer.gkf-ok { 
-                color: #5ec28c; /* Светло-зеленый текст */
-                background: #1e3126; /* Темно-зеленый фон */
+                color: #44BA7D; /* Точный цвет текста */
+                background: rgba(68, 186, 125, 0.1); /* Полупрозрачный фон для формы пилюли */
+                /* Если хотите полностью прозрачный фон без "пилюли", замените на: background: transparent; */
             }
             /* Стиль для красного таймера (Просрочено) */
             .gkf-exact-timer.gkf-over {
