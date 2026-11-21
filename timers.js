@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TIMERS
 // @description  Показывает таймер оставшегося времени / просрочки для закреплённых тем в разделе Жалобы на игроков
-// @version      1.1
+// @version      1.2
 // @namespace    https://forum.blackrussia.online
 // @match        https://forum.blackrussia.online/forums/*
 // @match        https://forum.blackrussia.online/threads/*
